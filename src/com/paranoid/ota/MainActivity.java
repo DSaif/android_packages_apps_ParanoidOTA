@@ -203,13 +203,8 @@ public class MainActivity extends Activity{
            public void onClick(DialogInterface dialog, int item) {
                final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                String storage = String.valueOf(items[item]);
-               File f = new File(storage + "test_file");
-               try {
-                   f.createNewFile();
-               } catch (IOException ex) {
-                   ex.printStackTrace();
-               }
-               if(f.exists()){
+               File f = new File(storage);
+               if(f.canWrite()){
                    f.delete();
                    SharedPreferences.Editor editor = sharedPreferences.edit();
                    editor.putString("storage", storage);
