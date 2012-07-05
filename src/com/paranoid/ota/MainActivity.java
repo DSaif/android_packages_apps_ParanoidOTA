@@ -205,7 +205,6 @@ public class MainActivity extends Activity{
                String storage = String.valueOf(items[item]);
                File f = new File(storage);
                if(f.canWrite()){
-                   f.delete();
                    SharedPreferences.Editor editor = sharedPreferences.edit();
                    editor.putString("storage", storage);
                    editor.commit();
