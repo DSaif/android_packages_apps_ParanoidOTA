@@ -26,8 +26,8 @@ public class FetchOnlineData extends AsyncTask<Integer, String, String>{
     
     protected static final String HTTP_HEADER = "http://paranoidandroid.d4net.org/";
     protected static final String DEVICE_NAME_PROPERTY = "ro.cm.device";
-    protected static final String REQUEST_VERSION = "webtools/ota.php?device=";
-    protected static final String REQUEST_FILENAME = "&request=1";
+    protected static final String REQUEST_VERSION = "webtools/version.php?device=";
+    protected static final String REQUEST_FILENAME = "&filename=1";
     protected static String mDevice;
     public String mResult;
     
