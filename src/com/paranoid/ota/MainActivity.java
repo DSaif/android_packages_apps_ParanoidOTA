@@ -76,8 +76,9 @@ public class MainActivity extends Activity{
                        if(System.currentTimeMillis() - mStart > 15000){
                            mToastHandler.sendEmptyMessage(1);
                            mServerTimeout = true;
+                           break;
                        }
-                       if(fod.mResult != null || mServerTimeout){
+                       if(fod.mResult != null){
                            mLatestVersion = Double.parseDouble(fod.mResult);
                            break;
                        }
@@ -90,18 +91,17 @@ public class MainActivity extends Activity{
                             while(fod.mResult == null){
                                 if(System.currentTimeMillis() - mStart > 15000){
                                     mToastHandler.sendEmptyMessage(1);
-                                    mServerTimeout = true;
+                                    break;
                                 }
                                 if(fod.mResult != null || mServerTimeout){
                                     mFileName = fod.mResult;
+                                    mDialogHandler.sendEmptyMessage(0);
                                     break;
                                 }
                             }
-                            mDialogHandler.sendEmptyMessage(0);
                         }
-                        else{
+                        else
                             mToastHandler.sendEmptyMessage(0);
-                        }
                    }
                    fod.release();
                    mLoadingProgress.dismiss();
@@ -230,7 +230,7 @@ public class MainActivity extends Activity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	 mOptionsMenu = menu;
-         menu.add(Menu.NONE, MENU_CHECK, 0, R.string.auto_check)
+         menu.add(Menu.NONE, MENU_CHECK, 0, R.string.check_updates)
                  .setIcon(R.drawable.ic_menu_autocheck)
                  .setEnabled(true)
                  .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);

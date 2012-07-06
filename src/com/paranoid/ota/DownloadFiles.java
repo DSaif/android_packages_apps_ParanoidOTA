@@ -114,7 +114,7 @@ public class DownloadFiles extends AsyncTask<String, Integer, Boolean>{
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             RunCommands.execute(new String[]{
-                                "busybox echo 'install_zip(\"" + mStorage + mFileName + "\");' > /cache/recovery/extendedcommand"}, mContext); 
+                                "busybox echo 'install_zip(\"" + mStorage + File.separator + mFileName + "\");' > /cache/recovery/extendedcommand"}, mContext); 
                         }
                     });
                 AlertDialog alert = builder.create();

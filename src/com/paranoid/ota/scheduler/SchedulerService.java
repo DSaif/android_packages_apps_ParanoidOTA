@@ -66,7 +66,6 @@ public class SchedulerService extends Service {
                     }
                     if(!mServerTimeout){
                         if(mLatestVersion > Utils.getRomVersion()){
-                            mLatestVersion = Double.parseDouble(fod.mResult);
                             mNotificationHandler.sendEmptyMessage(0);
                         }
                     }
