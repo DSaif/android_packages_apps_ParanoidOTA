@@ -22,7 +22,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -31,9 +30,9 @@ import com.paranoid.ota.*;
 public class SchedulerService extends Service {
     
     private static final int NOTIFICATION_ID = 42;
-    private WebFields.OtaVersion mOtaVersion;
     private boolean mServerTimeout = false;
     private double mLatestVersion;
+    private FetchOnlineData fod;
     private long mStart;
 
     @Override
@@ -54,18 +53,20 @@ public class SchedulerService extends Service {
         new Thread(new Runnable(){
             public void run(){
                 if(mIsConnected){
-                    mOtaVersion = new WebFields.OtaVersion();
-                    while(mOtaVersion.version == 0){
-                        mOtaVersion.getWebVersion();
+                    fod = new FetchOnlineData();
+                    fod.execute(0);
+                    while(fod.mResult == null){
                         if(System.currentTimeMillis() - mStart > 15000){
                             mServerTimeout = true;
                         }
-                        if(mOtaVersion.version != 0 || mServerTimeout)
+                        if(fod.mResult != null || mServerTimeout){
+                            mLatestVersion = Double.parseDouble(fod.mResult);
                             break;
+                        }
                     }
                     if(!mServerTimeout){
-                        if(mOtaVersion.version > Utils.getRomVersion()){
-                            mLatestVersion = mOtaVersion.version;
+                        if(mLatestVersion > Utils.getRomVersion()){
+                            mLatestVersion = Double.parseDouble(fod.mResult);
                             mNotificationHandler.sendEmptyMessage(0);
                         }
                     }

@@ -49,7 +49,7 @@ public class DownloadFiles extends AsyncTask<String, Integer, Boolean>{
                 URLConnection connection = url.openConnection();
                 connection.connect();
                 mFileLength = connection.getContentLength();
-                String mPath = mStorage + mFileName;
+                String mPath = mStorage + File.separator + mFileName;
                 InputStream input = new BufferedInputStream(url.openStream());
                 OutputStream output = new FileOutputStream(mPath);
                 byte data[] = new byte[1024];
