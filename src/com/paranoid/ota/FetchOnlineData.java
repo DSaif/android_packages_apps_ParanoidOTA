@@ -21,19 +21,21 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import android.util.Log;
 
 public class FetchOnlineData extends AsyncTask<Integer, String, String>{
     
-    protected static final String HTTP_HEADER = "http://paranoidandroid.d4net.org/";
+    protected static final String HTTP_HEADER = "http://www.paranoid-rom.com/";
+    protected static final String DEVICES_SUBDIRECTORY = "devices/";
     protected static final String DEVICE_NAME_PROPERTY = "ro.cm.device";
-    protected static final String REQUEST_VERSION = "webtools/version.php?device=";
+    protected static final String REQUEST_VERSION = "webtools/?device=";
     protected static final String REQUEST_FILENAME = "&filename=1";
     protected static String mDevice;
     public String mResult;
     
     @Override
     protected String doInBackground(Integer... paramss) {
-        mDevice = Utils.getProp(DEVICE_NAME_PROPERTY) + File.separator;
+        mDevice = Utils.getProp(DEVICE_NAME_PROPERTY);
         try {
             String url = paramss[0] == 1 ? HTTP_HEADER+REQUEST_VERSION+mDevice+REQUEST_FILENAME : HTTP_HEADER+REQUEST_VERSION+mDevice;
             InputStream is = openHttpConnection(url);

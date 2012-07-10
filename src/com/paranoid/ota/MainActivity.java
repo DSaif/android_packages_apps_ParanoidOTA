@@ -152,7 +152,7 @@ public class MainActivity extends Activity{
    };
    
    public void startDownload(){
-       new DownloadFiles().requestDownload(FetchOnlineData.HTTP_HEADER+FetchOnlineData.mDevice+mFileName, mFileName, mContext);
+       new DownloadFiles().requestDownload(FetchOnlineData.HTTP_HEADER+FetchOnlineData.DEVICES_SUBDIRECTORY+FetchOnlineData.mDevice+File.separator+mFileName, mFileName, mContext);
    }
    
    public void showIntervalDialog(){
